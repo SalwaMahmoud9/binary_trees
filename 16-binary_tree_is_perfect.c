@@ -32,7 +32,7 @@ int tree_is_perfect(const binary_tree_t *tree)
  */
 int binary_tree_is_perfect(const binary_tree_t *tree)
 {
-	int result = 0;
+	int int1 = 0;
 
 	if (tree == NULL)
 	{
@@ -40,8 +40,8 @@ int binary_tree_is_perfect(const binary_tree_t *tree)
 	}
 	else
 	{
-		result = tree_is_perfect(tree);
-		if (result != 0)
+		int1 = tree_is_perfect(tree);
+		if (int1 != 0)
 		{
 			return (1);
 		}

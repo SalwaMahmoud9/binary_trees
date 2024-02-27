@@ -7,23 +7,23 @@
  */
 binary_tree_t *binary_tree_insert_left(binary_tree_t *parent, int value)
 {
-	binary_tree_t *newNode;
+	binary_tree_t *binary_tree_t1;
 
 	if (parent == NULL)
 	{
 		return (NULL);
 	}
 
-	newNode = binary_tree_node(parent, value);
-	if (newNode == NULL)
+	binary_tree_t1 = binary_tree_node(parent, value);
+	if (binary_tree_t1 == NULL)
 	{
 		return (NULL);
 	}
 	if (parent->left != NULL)
 	{
-		newNode->left = parent->left;
-		parent->left->parent = newNode;
+		binary_tree_t1->left = parent->left;
+		parent->left->parent = binary_tree_t1;
 	}
-	parent->left = newNode;
-	return (newNode);
+	parent->left = binary_tree_t1;
+	return (binary_tree_t1);
 }

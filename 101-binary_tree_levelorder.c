@@ -41,29 +41,29 @@ size_t binary_tree_depth(const binary_tree_t *tree)
  */
 void linked_node(link_t **head, const binary_tree_t *tree, size_t level)
 {
-	link_t *new, *aux;
+	link_t *link_t1, *link_t2;
 
-	new = malloc(sizeof(link_t));
-	if (new == NULL)
+	link_t1 = malloc(sizeof(link_t));
+	if (link_t1 == NULL)
 	{
 		return;
 	}
-	new->n = level;
-	new->node = tree;
+	link_t1->n = level;
+	link_t1->node = tree;
 	if (*head == NULL)
 	{
-		new->next = NULL;
-		*head = new;
+		link_t1->next = NULL;
+		*head = link_t1;
 	}
 	else
 	{
-		aux = *head;
-		while (aux->next != NULL)
+		link_t2 = *head;
+		while (link_t2->next != NULL)
 		{
-			aux = aux->next;
+			link_t2 = link_t2->next;
 		}
-		new->next = NULL;
-		aux->next = new;
+		link_t1->next = NULL;
+		link_t2->next = link_t1;
 	}
 }
 /**
@@ -92,7 +92,7 @@ void recursion(link_t **head, const binary_tree_t *tree)
  */
 void binary_tree_levelorder(const binary_tree_t *tree, void (*func)(int))
 {
-	link_t *head, *aux;
+	link_t *head, *link_t2;
 	size_t height = 0, count = 0;
 
 	if (!tree || !func)
@@ -106,22 +106,22 @@ void binary_tree_levelorder(const binary_tree_t *tree, void (*func)(int))
 		recursion(&head, tree);
 		while (count <= height)
 		{
-			aux = head;
-			while (aux != NULL)
+			link_t2 = head;
+			while (link_t2 != NULL)
 			{
-				if (count == aux->n)
+				if (count == link_t2->n)
 				{
-					func(aux->node->n);
+					func(link_t2->node->n);
 				}
-				aux = aux->next;
+				link_t2 = link_t2->next;
 			}
 			count++;
 		}
 		while (head != NULL)
 		{
-			aux = head;
+			link_t2 = head;
 			head = head->next;
-			free(aux);
+			free(link_t2);
 		}
 	}
 }

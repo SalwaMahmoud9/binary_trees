@@ -6,17 +6,17 @@
  */
 link_t *newNode(binary_tree_t *node)
 {
-	link_t *new;
+	link_t *link_t1;
 
-	new =  malloc(sizeof(link_t));
-	if (new == NULL)
+	link_t1 =  malloc(sizeof(link_t));
+	if (link_t1 == NULL)
 	{
 		return (NULL);
 	}
-	new->node = node;
-	new->next = NULL;
+	link_t1->node = node;
+	link_t1->next = NULL;
 
-	return (new);
+	return (link_t1);
 }
 /**
  * free_q - free_q
@@ -24,13 +24,13 @@ link_t *newNode(binary_tree_t *node)
  */
 void free_q(link_t *head)
 {
-	link_t *temp_node;
+	link_t *link_t1;
 
 	while (head)
 	{
-		temp_node = head->next;
+		link_t1 = head->next;
 		free(head);
-		head = temp_node;
+		head = link_t1;
 	}
 }
 /**
@@ -41,16 +41,16 @@ void free_q(link_t *head)
  */
 void _push(binary_tree_t *node, link_t *head, link_t **tail)
 {
-	link_t *new;
+	link_t *link_t1;
 
-	new = newNode(node);
-	if (new == NULL)
+	link_t1 = newNode(node);
+	if (link_t1 == NULL)
 	{
 		free_q(head);
 		exit(1);
 	}
-	(*tail)->next = new;
-	*tail = new;
+	(*tail)->next = link_t1;
+	*tail = link_t1;
 }
 /**
  * _pop - _pop
@@ -58,11 +58,11 @@ void _push(binary_tree_t *node, link_t *head, link_t **tail)
  */
 void _pop(link_t **head)
 {
-	link_t *temp_node;
+	link_t *link_t1;
 
-	temp_node = (*head)->next;
+	link_t1 = (*head)->next;
 	free(*head);
-	*head = temp_node;
+	*head = link_t1;
 }
 /**
  * binary_tree_is_complete - binary_tree_is_complete

@@ -1,8 +1,30 @@
 #include "binary_trees.h"
+
+/**
+ * bal - bal
+ * @tree: tree
+ * Return: bal
+ */
+void bal(avl_t **tree)
+{
+	int int1;
+
+	if (tree == NULL || *tree == NULL)
+		return;
+	if ((*tree)->right == NULL && (*tree)->left == NULL)
+		return;
+	bal(&(*tree)->left);
+	bal(&(*tree)->right);
+	int1 = binary_tree_balance((const binary_tree_t *)*tree);
+	if (int1 < -1)
+		*tree = binary_tree_rotate_left((binary_tree_t *)*tree);
+	else if (int1 > 1)
+		*tree = binary_tree_rotate_right((binary_tree_t *)*tree);
+}
 /**
  * successor - successor
  * @node: tree
- * Return: minimum value
+ * Return: min value
  */
 int successor(bst_t *node)
 {
@@ -24,25 +46,14 @@ int successor(bst_t *node)
 
 }
 /**
- * two_children - two_children
- * @root: root
- * Return: value
- */
-int two_children(bst_t *root)
-{
-	int int1 = 0;
-
-	int1 = successor(root->right);
-	root->n = int1;
-	return (int1);
-}
-/**
  *remove_type - remove_type
  *@root: root
- *Return: 0 or value
+ *Return: value
  */
 int remove_type(bst_t *root)
 {
+	int new_value = 0;
+
 	if ((!root->left && root->right) || (!root->right && root->left))
 	{
 		if (!root->left)
@@ -74,7 +85,11 @@ int remove_type(bst_t *root)
 		return (0);
 	}
 	else
-		return (two_children(root));
+	{
+		new_value = successor(root->right);
+		root->n = new_value;
+		return (new_value);
+	}
 }
 /**
  * bst_remove - bst_remove
@@ -84,7 +99,7 @@ int remove_type(bst_t *root)
  */
 bst_t *bst_remove(bst_t *root, int value)
 {
-	int int1 = 0;
+	int type = 0;
 
 	if (root == NULL)
 		return (NULL);
@@ -94,11 +109,27 @@ bst_t *bst_remove(bst_t *root, int value)
 		bst_remove(root->left, value);
 	else if (value == root->n)
 	{
-		int1 = remove_type(root);
-		if (int1 != 0)
-			bst_remove(root->right, int1);
+		type = remove_type(root);
+		if (type != 0)
+			bst_remove(root->right, type);
 	}
 	else
 		return (NULL);
 	return (root);
+}
+
+/**
+ * avl_remove - avl_remove
+ * @root: root
+ * @value: value
+ * Return: tree
+ */
+avl_t *avl_remove(avl_t *root, int value)
+{
+	avl_t *root_a = (avl_t *) bst_remove((bst_t *) root, value);
+
+	if (root_a == NULL)
+		return (NULL);
+	bal(&root_a);
+	return (root_a);
 }

@@ -15,7 +15,7 @@ bst_t *array_to_bst(int *array, size_t size)
 	{
 		return (NULL);
 	}
-	for (i=0; i < size; i++)
+	for (; i < size; i++)
 	{
 		if (i == 0)
 		{

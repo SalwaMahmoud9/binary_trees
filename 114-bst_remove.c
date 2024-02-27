@@ -43,16 +43,7 @@ int two_children(bst_t *root)
  */
 int remove_type(bst_t *root)
 {
-	if (!root->left && !root->right)
-	{
-		if (root->parent->right == root)
-			root->parent->right = NULL;
-		else
-			root->parent->left = NULL;
-		free(root);
-		return (0);
-	}
-	else if ((!root->left && root->right) || (!root->right && root->left))
+	if ((!root->left && root->right) || (!root->right && root->left))
 	{
 		if (!root->left)
 		{
@@ -73,6 +64,15 @@ int remove_type(bst_t *root)
 		free(root);
 		return (0);
 	}
+	else if (!root->left && !root->right)
+	{
+		if (root->parent->right == root)
+			root->parent->right = NULL;
+		else
+			root->parent->left = NULL;
+		free(root);
+		return (0);
+	}
 	else
 		return (two_children(root));
 }
@@ -88,10 +88,10 @@ bst_t *bst_remove(bst_t *root, int value)
 
 	if (root == NULL)
 		return (NULL);
-	if (value < root->n)
-		bst_remove(root->left, value);
-	else if (value > root->n)
+	if (value > root->n)
 		bst_remove(root->right, value);
+	else if (value < root->n)
+		bst_remove(root->left, value);
 	else if (value == root->n)
 	{
 		type = remove_type(root);
